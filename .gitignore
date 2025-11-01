@@ -1,0 +1,24 @@
+# Node
+node_modules/
+# Angular/Vite/IDE
+.dist/
+dist/
+.angular/
+.vscode/
+.idea/
+# Environment
+.env
+.env.*
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# OS
+.DS_Store
+Thumbs.db
+# Build
+build/
+coverage/
+
+# Optional lockfile ignore? keep lockfile committed for reproducible installs
+# package-lock.json
