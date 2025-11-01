@@ -1,0 +1,83 @@
+<div class="container-fluid p-4">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Add User Booking</h4>
+    </div>
+    
+    <div class="card-body">
+      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+        
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>Name *</label>
+            <input type="text" class="form-control" [(ngModel)]="userName" name="userName" required>
+          </div>
+          <div class="col-md-4">  
+            <label>Email *</label>
+            <input type="email" class="form-control" [(ngModel)]="userEmail" name="userEmail" required>
+          </div>
+          <div class="col-md-4">
+            <label>Phone *</label>
+            <input type="tel" class="form-control" [(ngModel)]="userPhone" name="userPhone" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label>Check-in Date *</label>
+            <input type="date" class="form-control" [(ngModel)]="checkInDate" name="checkInDate" [min]="today" required>
+          </div>
+          <div class="col-md-6">
+            <label>Check-out Date *</label>
+            <input type="date" class="form-control" [(ngModel)]="checkOutDate" name="checkOutDate" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>Location *</label>
+            <select class="form-select" [(ngModel)]="selectedLocation" name="selectedLocation" required>
+              <option value="">Select Location</option>
+              <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label>Hotel *</label>
+            <select class="form-select" [(ngModel)]="selectedHotel" name="selectedHotel" required>
+              <option value="">Select Hotel</option>
+              <option *ngFor="let hotel of hotels" [value]="hotel">{{ hotel }}</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label>Room Type *</label>
+            <select class="form-select" [(ngModel)]="selectedRoomType" name="selectedRoomType" required>
+              <option value="">Select Room Type</option>
+              <option *ngFor="let roomType of roomTypes" [value]="roomType">{{ roomType }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label>Guests *</label>
+            <select class="form-select" [(ngModel)]="numberOfGuests" name="numberOfGuests" required>
+              <option value="">Select Guests</option>
+              <option value="1">1 Guest</option>
+              <option value="2">2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-secondary" (click)="goBackToDashboard()">
+            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+          </button>
+          <button type="submit" class="btn btn-primary">Add Booking</button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+</div>

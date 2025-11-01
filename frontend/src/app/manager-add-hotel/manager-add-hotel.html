@@ -1,0 +1,88 @@
+<div class="dashboard-container">
+  <!-- Header Section with Back Button -->
+  <div class="dashboard-header">
+    <button class="btn btn-outline-secondary back-home-btn" (click)="goBackToDashboard()">
+      <i class="bi bi-arrow-left"></i> Back to Dashboard
+    </button>
+    <h2 class="dashboard-title">Manager Dashboard - Add New Room</h2>
+  </div>
+  
+  <div class="room-form-container">
+    <form #hotelForm="ngForm" (ngSubmit)="submitRoom(hotelForm)">
+      <label for="location">Location</label>
+      <select [(ngModel)]="selectedLocation" name="location" id="location" (change)="onLocationChange()" required>
+        <option value="" disabled>Select a location</option>
+        <option *ngFor="let loc of locations" [value]="loc.name">
+          {{ loc.emoji }} {{ loc.name }}
+        </option>
+      </select>
+   
+      <label for="hotelChain">Hotel Name</label>
+      <select [(ngModel)]="selectedHotelChain" name="hotelChain" id="hotelChain" (change)="onHotelChainChange()" required>
+        <option value="" disabled>Select a hotel</option>
+        <option *ngFor="let hotel of hotelChains" [value]="hotel">{{ hotel }}</option>
+      </select>
+   
+      <label for="roomType">Room Type</label>
+      <select [(ngModel)]="selectedRoomType" name="roomType" id="roomType" (change)="onRoomTypeChange()" required>
+        <option value="" disabled>Select a type</option>
+        <option *ngFor="let type of roomTypes" [value]="type">{{ type }}</option>
+      </select>
+   
+      <label>Amenities</label>
+      <div class="checkbox-group">
+        <label *ngFor="let key of amenityKeys">
+          <input type="checkbox" [(ngModel)]="amenities[key]" name="{{key}}" (change)="onAmenityChange()">
+          {{ key | titlecase }}
+        </label>
+      </div>
+
+      <!-- Automatic Price Display -->
+      <div class="price-display" *ngIf="pricePerNight > 0">
+        <label>Calculated Price per Night</label>
+        <div class="calculated-price">
+          ₹{{ pricePerNight | number:'1.0-0' }}
+        </div>
+        
+        <!-- Optional: Price Breakdown -->
+        <div class="price-breakdown" *ngIf="getPriceBreakdown()">
+          <small>
+            Base: ₹{{ getPriceBreakdown()?.basePrice | number:'1.0-0' }} | 
+            Location: ×{{ getPriceBreakdown()?.locationMultiplier }} | 
+            Hotel: ×{{ getPriceBreakdown()?.hotelMultiplier }} | 
+            Amenities: +₹{{ getPriceBreakdown()?.amenityCost | number:'1.0-0' }}
+          </small>
+        </div>
+      </div>
+   
+      <div class="d-flex justify-content-center mt-4">
+        <button type="submit" class="btn btn-primary" [disabled]="hotelForm.invalid">Submit</button>
+      </div>
+    </form>
+  </div>
+ 
+ 
+  <div class="room-card" *ngIf="submittedRoom">
+    <h3>{{ submittedRoom.hotelChain }}</h3>
+    <p>
+      <strong>Location:</strong>
+      <span>{{ submittedRoom.location }}</span>
+      <span class="location-emoji">{{ getLocationEmoji(submittedRoom.location) }}</span>
+    </p>
+    <p><strong>Room Type:</strong> {{ submittedRoom.type }}</p>
+    <p><strong>Price:</strong> ₹{{ submittedRoom.price | number:'1.0-0' }}</p>
+    <p><strong>Amenities:</strong>
+      <span>
+        <ng-container *ngFor="let key of amenityKeys; last as isLast">
+          {{ key | titlecase }}{{ submittedRoom.amenities[key] ? (isLast ? '.' : ', ') : '' }}
+        </ng-container>
+      </span>
+    </p>
+  </div>
+</div>
+ 
+ 
+ 
+ 
+ 
+ 

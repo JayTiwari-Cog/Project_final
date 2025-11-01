@@ -1,0 +1,36 @@
+<div *ngIf="!openBookingDetails" class="booking-confirmation">
+  <div class="booking-header">
+    <button class="back-btn" (click)="goBack()">← Back to Search</button>
+    <h2>Booking Confirmation</h2>
+    <button class="cross" (click)="closeBooking()">X</button>
+  </div>
+  
+  <div class="booking-content" *ngIf="hotel">
+    <div class="hotel-info">
+      <h3>{{ hotel.name }}</h3>
+      <p><i class="fas fa-map-marker-alt"></i> {{ hotel.location }}</p>
+      <p><i class="fas fa-star"></i> {{ hotel.rating }} Rating</p>
+      <p class="price"><i class="fas fa-rupee-sign"></i> {{ hotel.price }} per night</p>
+    </div>
+    
+    <div class="stay-details">
+      <h4>Stay Details</h4>
+      <p><strong>Check-in:</strong> {{ checkIn | date:'fullDate' }}</p>
+      <p><strong>Check-out:</strong> {{ checkOut | date:'fullDate' }}</p>
+    </div>
+    
+    <div class="booking-actions">
+      <button class="confirm-btn" (click)="confirmBooking()">
+        <i class="fas fa-check"></i> Confirm Booking
+      </button>
+    </div>
+  </div>
+  
+  <div *ngIf="!hotel" class="no-hotel-selected">
+    <p>No hotel selected. Please go back and select a hotel.</p>
+    <button (click)="goBack()">Back to Hotel Search</button>
+  </div>
+</div>
+<app-booking-details *ngIf="openBookingDetails" [selectedHotel]="hotel" (close)="closeBooking()"></app-booking-details>
+ 
+<!-- hotel = { name: string; location: string; price: number; rating: number} -->

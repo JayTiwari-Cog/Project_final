@@ -1,0 +1,163 @@
+<div class="form-container">
+  <div class="feedback-header">
+    <button class="back-btn" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i> Back
+    </button>
+    <h3><i class="bi bi-chat-heart"></i> Leave Your Feedback</h3>
+  </div>
+ 
+  <form #feedbackForm="ngForm" (ngSubmit)="submitFeedback(feedbackForm)">
+    <div class="form-group">
+      <label for="name">Your Name</label>
+      <input 
+        id="name"
+        name="name"
+        type="text"
+        [(ngModel)]="name" 
+        placeholder="Enter your full name"
+        required
+        [class.error-input]="showFormErrors && name.trim() === ''"
+      />
+      <div *ngIf="showFormErrors && name.trim() === ''" class="error-message">
+        Name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="comment">Your Comments</label>
+      <textarea 
+        id="comment"
+        name="comment"
+        [(ngModel)]="comment" 
+        placeholder="Share your experience with us..."
+        required
+        [class.error-input]="showFormErrors && comment.trim() === ''"
+      ></textarea>
+      <div *ngIf="showFormErrors && comment.trim() === ''" class="error-message">
+        Comments are required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Rating</label>
+      <div class="star-rating">
+        <span
+          *ngFor="let star of stars; let i = index"
+          (click)="setRating(i + 1)"
+          (mouseover)="hoverRating(i + 1)"
+          (mouseleave)="hoverRating(0)"
+          [class.filled]="(i + 1) <= (hoveredRating || rating)"
+        >
+          ★
+        </span>
+      </div>
+      <input type="hidden" name="rating" [(ngModel)]="rating" required />
+      <div *ngIf="showFormErrors && rating <= 0" class="error-message">
+        Rating is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location</label>
+      <select 
+        id="location"
+        name="location"
+        [(ngModel)]="selectedLocation"
+        required
+        [class.error-input]="showFormErrors && selectedLocation === ''"
+      >
+        <option value="">Select Location</option>
+        <option *ngFor="let location of locations" [value]="location">
+          {{location}}
+        </option>
+      </select>
+      <div *ngIf="showFormErrors && selectedLocation === ''" class="error-message">
+        Location is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="hotel">Hotel Name</label>
+      <select 
+        id="hotel"
+        name="hotel"
+        [(ngModel)]="selectedHotel"
+        required
+        [class.error-input]="showFormErrors && selectedHotel === ''"
+      >
+        <option value="">Select Hotel</option>
+        <option *ngFor="let hotel of hotels" [value]="hotel">
+          {{hotel}}
+        </option>
+      </select>
+      <div *ngIf="showFormErrors && selectedHotel === ''" class="error-message">
+        Hotel name is required
+      </div>
+    </div>
+
+    <button 
+      type="submit"
+      [disabled]="feedbackForm.invalid"
+    >
+      <i class="bi bi-send"></i> Submit Feedback
+    </button>
+
+    <!-- Form validation summary -->
+    <div *ngIf="showFormErrors" class="validation-summary">
+      <p class="error-message">
+        <i class="bi bi-exclamation-triangle"></i>
+        Please fill in all required fields to submit your feedback.
+      </p>
+    </div>
+  </form>
+</div>
+
+<div class="reviews-section" *ngIf="submittedReviews.length > 0">
+  <h4 class="reviews-title">
+    <i class="bi bi-chat-square-text"></i> Recent Reviews
+  </h4>
+  
+  <!-- Merged Review Card Template -->
+  <div *ngFor="let review of submittedReviews" class="review-card">
+    <div class="review-header">
+      <h4>
+        <i class="bi bi-person-circle"></i>
+        {{ review.name }}
+      </h4>
+      <div class="star-display">
+        <span *ngFor="let star of getStars(review)">★</span>
+        <span class="text-muted ms-2">({{ review.rating }}/5)</span>
+      </div>
+    </div>
+    
+    <!-- Hotel and Location info -->
+    <div class="hotel-info" *ngIf="review.hotelName || review.location">
+      <div class="hotel-details">
+        <span *ngIf="review.hotelName" class="hotel-name">
+          <i class="bi bi-building"></i>
+          {{ review.hotelName }}
+        </span>
+        <span *ngIf="review.location" class="location">
+          <i class="bi bi-geo-alt"></i>
+          {{ review.location }}
+        </span>
+      </div>
+    </div>
+    
+    <p>"{{ review.comment }}"</p>
+    
+    <div class="review-meta">
+      <small class="review-date">
+        <i class="bi bi-clock"></i>
+        {{ getCurrentDate() }}
+      </small>
+      <small class="text-muted">
+        <i class="bi bi-check-circle text-success"></i>
+        Verified Review
+      </small>
+    </div>
+  </div>
+</div>
+ 
+ 
+ 

@@ -1,0 +1,37 @@
+<div class="managerdashboard-container">
+  <div class="dashboard-header">
+    <h2>Manager Dashboard</h2>
+    <p>Welcome to the hotel management system</p>
+  </div>
+
+  <!-- Main dashboard content - shown when no child route is active -->
+  <div class="dashboard-main-content">
+    <div class="dashboard-actions">
+      <div class="action-card">
+        <i class="fas fa-hotel action-icon text-primary"></i>
+        <h4>Add Hotel Room</h4>
+        <p>Add new rooms and manage hotel inventory</p>
+        <button class="btn btn-dashboard btn-primary" (click)="showAddHotel()">
+          Manage Hotels
+        </button>
+      </div>
+
+      <div class="action-card">
+        <i class="fas fa-user-plus action-icon text-success"></i>
+        <h4>Add User Booking</h4>
+        <p>Create bookings for customers</p>
+        <button class="btn btn-dashboard btn-success" (click)="showAddUser()">
+          Add Booking
+        </button>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-secondary" (click)="goHome()">
+        <i class="fas fa-home me-2"></i>Back to Home
+      </button>
+    </div>
+  </div>
+
+
+</div>

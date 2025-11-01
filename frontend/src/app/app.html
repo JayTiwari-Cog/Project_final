@@ -1,0 +1,48 @@
+<div class="app-container">
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" (click)="showHome()" style="cursor: pointer;">
+        Smart Hotel Booking
+      </a>
+      
+      <div class="navbar-nav ms-auto">
+        <!-- Buttons visible only when NOT logged in -->
+        <div *ngIf="!isLoggedIn" class="btn-group me-2">
+          <button class="btn btn-outline-light" (click)="showGuestLogin()">
+            <i class="bi bi-person-circle"></i> Guest Login
+          </button>
+          <button class="btn btn-outline-success" (click)="showManagerLogin()">
+            <i class="bi bi-shield-check"></i> Manager Login
+          </button>
+        </div>
+        <button *ngIf="!isLoggedIn" class="btn btn-outline-light" (click)="showRegister()">
+          <i class="bi bi-person-plus"></i> Register
+        </button>
+        
+        <!-- Buttons visible only when logged in -->
+        <button *ngIf="isLoggedIn" class="btn btn-outline-info me-2" (click)="showMyBookings()">
+          <i class="bi bi-calendar-check"></i> My Bookings
+        </button>
+        <div *ngIf="isLoggedIn" class="dropdown">
+          <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle"></i> {{ userRole === 'manager' ? 'Manager' : 'User' }}
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="showDashboard()" style="cursor: pointer;">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="app-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

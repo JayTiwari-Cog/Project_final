@@ -1,0 +1,91 @@
+.payment-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+ 
+.payment-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+ 
+.payment-form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #444;
+}
+ 
+.payment-form input,
+.payment-form select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+ 
+.payment-form input:focus,
+.payment-form select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+ 
+.payment-form select {
+  background-color: #f9f9f9;
+}
+ 
+.payment-form .method-options {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+ 
+.payment-form .method-options label {
+  font-weight: normal;
+  color: #555;
+}
+ 
+.payment-form button {
+  margin-top: 2rem;
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+ 
+.payment-form button:hover {
+  background-color: #218838;
+}
+ 
+.payment-form .error {
+  color: #d9534f;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+ 
+#btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #c94040;
+ 
+}
+#btn:hover {
+  color: #a33232;
+}
