@@ -1,8 +1,8 @@
 <div class="login-container">
   <div class="login-card">
     <div class="login-header">
-      <h2><i class="bi bi-person-circle"></i> Guest Login</h2>
-      <p>Sign in to your guest account</p>
+      <h2><i class="bi bi-person-circle"></i> Login</h2>
+      <p>Sign in to your account</p>
     </div>
 
     <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
@@ -45,16 +45,14 @@
 
       <button type="submit" class="btn-login" [disabled]="!loginForm.form.valid">
         <i class="bi bi-box-arrow-in-right"></i>
-        Sign In as Guest
+        Just login
       </button>
     </form>
 
     <div class="login-footer">
       <p>Don't have an account? <a (click)="onShowRegister()" class="link">Register here</a></p>
       <p><a (click)="goHome()" class="link">← Back to Home</a></p>
-      <div class="role-switch">
-        <p>Are you a hotel manager? <a (click)="switchToManagerLogin()" class="manager-link">Manager Login</a></p>
-      </div>
+      <!-- Manager login link removed per request -->
     </div>
   </div>
 </div>

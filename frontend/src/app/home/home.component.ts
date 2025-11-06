@@ -54,10 +54,10 @@ import { Router } from '@angular/router';
             <div class="card h-100 border-0 shadow-sm guest-card">
               <div class="card-body text-center p-4">
                 <i class="bi bi-person-circle text-primary fs-1 mb-3"></i>
-                <h5 class="card-title">Guest Login</h5>
+                <h5 class="card-title">Login</h5>
                 <p class="card-text text-muted mb-3">Book hotels and manage your reservations</p>
                 <button class="btn btn-primary btn-lg px-4 py-2" (click)="navigateToGuestLogin()">
-                  <i class="bi bi-box-arrow-in-right"></i> Guest Login
+                  <i class="bi bi-box-arrow-in-right"></i> Login
                 </button>
               </div>
             </div>

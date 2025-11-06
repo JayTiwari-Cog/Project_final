@@ -2,8 +2,12 @@ import User from "../models/User.js";
 import UserCreds from "../models/UserCreds.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import { validationResult } from 'express-validator';
 export const registerUser = async (req, res) => {
     const {name,email,phoneNumber,password,confirmPassword} = req.body;
+    // Check express-validator results first
+    console.log("Inside registerUser");
+    
     try{
         if(password !== confirmPassword){
             return  res.status(400).json({message: "Passwords do not match"});
@@ -44,6 +48,11 @@ export const registerUser = async (req, res) => {
 }
 export const loginUser = async (req, res) => {
     const {email, password} = req.body;
+    // Check express-validator results first
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     try{
         if(!email || !password){
             return res.status(400).json({message: "All fields are required"});
@@ -65,8 +74,8 @@ export const loginUser = async (req, res) => {
        
  return res.status(200).json({
   token: token,
-  role: userDetails.role,  
-   
+  userId: userDetails._id,
+  role: userDetails.role  // Use userDetails.role instead of user.role (user is UserCreds, userDetails is User)
   });
 
     }

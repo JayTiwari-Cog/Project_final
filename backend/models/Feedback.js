@@ -1,18 +1,15 @@
 import mongoose from "mongoose";
 
 const feedbackSchema = new mongoose.Schema({
-    userId: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User',
-    },
+    // userId: { 
+    //     type: mongoose.Schema.Types.ObjectId, 
+    //     ref: 'User',
+    // },
     hotelId: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Hotel',
     },
-    location: { 
-        type: String,
-        required: true
-    },
+
     feedbackText: {
         type: String,
         required: true

@@ -10,6 +10,7 @@ import { ManagerDashboardComponent } from './managerdashboard/managerdashboard';
 import { MyBookingsComponent } from './my-bookings/my-bookings.component';
 import { ManagerAddUserComponent } from './manager-add-user/manager-add-user';
 import { ManagerAddHotelComponent } from './manager-add-hotel/manager-add-hotel';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
   // User routes
   { 
     path: 'user', 
+    canActivate: [AuthGuard],
     children: [
       { path: 'hotel-search', component: HotelSearch },
       { path: 'booking', component: Booking },
@@ -33,6 +35,7 @@ export const routes: Routes = [
   // Manager routes
   { 
     path: 'manager', 
+    canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: ManagerDashboardComponent },
       { path: 'add-user', component: ManagerAddUserComponent },

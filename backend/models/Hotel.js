@@ -1,35 +1,49 @@
 import mongoose from "mongoose";
-
+ 
 const HotelSchema = new mongoose.Schema({
-    name: {
-         type: String,
-        required: true
-         },
-    location: {
-         type: String,
-          required: true
-         },
+    hotelName: {
+        type: String,
+        required: [true, 'Hotel name is required']
+    },
+   
     roomType: {
-         type: String,
-          required: true
-         },
+        type: [{
+            type: String,
+            enum: ["Single", "Double", "Deluxe","Twin", "Suite" ]
+        }],
+        required: [true, 'At least one room type is required'],
+       
+    },
     amenities: {
-         type: [String],
-          required: false
-         },
+        type: [{
+            type: String,
+            enum: ['WiFi','Parking','Swimming Pool', 'Gym','Restaurant', ]
+        }],
+        required: [true, 'At least one amenity is required'],
+       
+    },
     address: {
-         type: String,
-          required: true
-         },
-    city: {
-         type: String,
-          required: true
-         },
+     
+        street: {
+            type: String,
+            required: [true, 'Street address is required']
+        },
+        city: {
+            type: String,
+            required: [true, 'City is required']
+        },
+        postalCode: {
+            type: String,
+            required: [true, 'Postal code is required'],
+            match: [/^[0-9]{6}$/, 'Please enter a valid 6-digit postal code']
+        }
+    },
     pricePerNight: {
-         type: Number,
-          required: true
-         },
+        type: Number,
+        required: [true, 'Price per night is required']
+    },
 }, { timestamps: true });
-
+ 
 const Hotel = mongoose.model("Hotel", HotelSchema);
 export default Hotel;
+ 

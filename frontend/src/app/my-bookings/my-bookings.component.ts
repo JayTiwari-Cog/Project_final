@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { AuthProvider } from '../services/auth.provider';
 
 interface BookingRecord {
   id: string;
@@ -21,9 +22,6 @@ interface BookingRecord {
   template: `
     <div class="container mt-4">
       <div class="header-section mb-4">
-        <button class="btn btn-outline-primary mb-3" (click)="goBack()">
-          <i class="bi bi-arrow-left"></i> Back
-        </button>
         <h1 class="text-primary">My Bookings</h1>
         <p class="text-muted">View and manage your hotel reservations</p>
       </div>
@@ -111,7 +109,8 @@ export class MyBookingsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private authProvider: AuthProvider
   ) {}
 
   ngOnInit() {
@@ -122,7 +121,10 @@ export class MyBookingsComponent implements OnInit {
   }
 
   checkLoginStatus() {
-    this.isLoggedIn = this.authService.isAuthenticated();
+    // Check for auth token in AuthProvider (in-memory)
+    const token = this.authProvider.getToken();
+    this.isLoggedIn = !!token;
+    console.log('My Bookings - Login status:', this.isLoggedIn, 'Has token in memory:', !!token);
   }
 
   loadBookings() {

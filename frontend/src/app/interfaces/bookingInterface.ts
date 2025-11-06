@@ -1,8 +1,6 @@
 export interface BookingData {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   country: string;
   phone: string;
-  
 }

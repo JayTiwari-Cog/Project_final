@@ -1,8 +1,5 @@
 <div class="smart-hotel-booking-root">
   <div class="header-section">
-    <button class="back-btn" (click)="goHome()">
-      <i class="fas fa-arrow-left"></i> Back to Home
-    </button>
     <h1 class="main-title">Smart Hotel Booking</h1>
   </div>
   <hr class="main-divider" />
@@ -62,10 +59,10 @@
       *ngFor="let hotel of hotels | hotelFilter:searchTerm"
       class="hotel-card"
     >
-      <h3>{{ hotel.name }}</h3>
-      <p>{{ hotel.location }}</p>
-      <p>₹{{ hotel.price }}</p>
-      <p>{{ hotel.rating }}</p>
+      <h3>{{ hotel.hotelName }}</h3>
+      <p>{{ hotel.address.street }}</p>
+      <p>₹{{ hotel.pricePerNight }}</p>
+     
      <button class="book-btn" (click)="bookHotel(hotel)">Book</button>
     </div>
   </div>

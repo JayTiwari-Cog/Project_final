@@ -59,7 +59,7 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit() {
     // Load hotels from service
-    this.hotel = this.hotelService.getHotels();
+    // this.hotel = this.hotelService.getHotels();
     console.log('Selected hotel:', this.selectedHotel);
     console.log('Available hotels:', this.hotel.length);
   }

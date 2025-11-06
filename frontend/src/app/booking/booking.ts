@@ -22,7 +22,6 @@ export class Booking implements OnInit {
   constructor(private router: Router) {}
  
   ngOnInit() {
-    // Load booking data from session storage if available
     const storedBookingData = sessionStorage.getItem('bookingData');
     if (storedBookingData) {
       const bookingData = JSON.parse(storedBookingData);

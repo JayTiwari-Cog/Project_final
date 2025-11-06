@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient,HttpHeaders } from "@angular/common/http";
+import { AuthProvider } from "../services/auth.provider";
 
 import { Observable,throwError } from "rxjs";
 
@@ -10,18 +11,19 @@ import { Observable,throwError } from "rxjs";
 export class UserService{
     private registerUrl='http://localhost:3000/api/register'
     private loginUrl='http://localhost:3000/api/login'
-    constructor(private http:HttpClient){}
+    constructor(private http:HttpClient, private authProvider: AuthProvider){}
      registerUser(userData:any):Observable<any>{
         console.log("Registering user",userData);
         return this.http.post<any>(this.registerUrl,userData);
      }
 
       setToken(token: string) {
-      localStorage.setItem('authToken', token);
+        console.log('Setting auth token:', token);
+        this.authProvider.setToken(token);
     }
 
     getToken(): string | null {
-      return localStorage.getItem('authToken');
+      return this.authProvider.getToken();
     }
 
      loginUser(loginData:any):Observable<any>{

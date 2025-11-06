@@ -1,6 +1,6 @@
 export interface HotelInterface {
-  id: number;
-  name: string;
+  _id: number;
+  hotelName: string;
   location: string;
   price: number;
   rating: number;

@@ -2,6 +2,7 @@ import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { AuthProvider } from './services/auth.provider';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -19,7 +20,7 @@ export class App implements OnInit {
   userRole: 'user' | 'manager' | null = null;
   isLoggedIn = false;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService, private authProvider: AuthProvider) {}
 
   ngOnInit() {
     // Check initial login state
@@ -34,19 +35,33 @@ export class App implements OnInit {
   }
 
   checkLoginStatus() {
-    this.isLoggedIn = this.authService.isAuthenticated();
+    // Check if token exists in AuthProvider (in-memory)
+    const token = this.authProvider.getToken();
+    const storedRole = localStorage.getItem('userRole');
+
+    // User is logged in if token exists in memory
+    this.isLoggedIn = !!token;
+
     if (this.isLoggedIn) {
-      // For now, treat all logged-in users as regular users
-      // You can extend this logic later to differentiate between user and manager
-      this.userRole = 'user';
+      this.userRole = (storedRole === 'manager' ? 'manager' : 'user') as 'user' | 'manager';
     } else {
       this.userRole = null;
     }
+
+    console.log('Login status checked:', { isLoggedIn: this.isLoggedIn, userRole: this.userRole, hasTokenInMemory: !!token });
   }
 
   // Navigation methods
   showHome() {
-    this.router.navigate(['/home']);
+    // If user is logged in, show logout confirmation
+    if (this.isLoggedIn) {
+      if (confirm('Do you want to logout and return to home?')) {
+        this.logout();
+      }
+    } else {
+      // If not logged in, navigate to home normally
+      this.router.navigate(['/home']);
+    }
   }
 
   showGuestLogin() {
@@ -82,6 +97,9 @@ export class App implements OnInit {
   }
 
   logout() {
+    // Clear token from memory and remove role
+    this.authProvider.clearToken();
+    localStorage.removeItem('userRole');
     this.authService.logout();
     this.userRole = null;
     this.isLoggedIn = false;

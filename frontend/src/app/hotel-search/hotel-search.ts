@@ -6,8 +6,8 @@ import { HotelFilterPipe } from "./hotel-search.pipe";
 import { GuestSelectorComponent } from '../guest-selector/guest-selector';
 import { Booking } from "../booking/booking";
 import { HotelService } from '../services/hotel.service';
+import { AuthProvider } from '../services/auth.provider';
 import { HotelInterface } from '../interfaces/hotelInterface';
-import { UserService } from '../apiService/userService';
  
 @Component({
   selector: 'app-hotel-search',
@@ -20,30 +20,19 @@ export class HotelSearch implements OnInit {
   @Output() hotelSelected = new EventEmitter<{hotel: HotelInterface, checkInDate: string, checkOutDate: string}>();
   @Output() backToHome = new EventEmitter<void>();
 
-  hotels:HotelInterface[]=[];
+  hotels=[];
 
-  constructor(private hotelService:HotelService, private router: Router,private userService: UserService) {}
-   verifying: boolean = true;
-   userData: any = null;
+  constructor(private hotelService:HotelService, private router: Router, private authProvider: AuthProvider) {}
    
   ngOnInit(): void {
-    
-this.userService.verifyToken().subscribe({
-    next: (res) => {
-      this.verifying = false;
-      this.userData = res;
+    // AuthGuard already verified the token before this component loads
+    // No need for manual token verification
+    this.hotelService.getHotels().subscribe(hotels => {
+      this.hotels = hotels;
+      console.log(this.hotels);
+    });
 
-      // Load hotels only after token is verified
-      this.hotels = this.hotelService.getHotels();
-      this.searchTriggered = false;
-    },
-    error: (err) => {
-      console.error('Token verification failed:', err);
-      localStorage.removeItem('authToken');
-      this.router.navigate(['/login']);
-    }
-  });
-
+    this.searchTriggered = false;
   }
 
   searchTerm: string = '';
@@ -55,7 +44,7 @@ this.userService.verifyToken().subscribe({
   checkOutDate: string = '';
   dateError: string = '';
  
-  selectedHotel: HotelInterface | null = null;
+  selectedHotel: any | null = null;
   today: string = new Date().toISOString().split('T')[0];
  
   triggerSearch(form?: any) {
@@ -112,7 +101,7 @@ updateSearchLabel() {
   this.searchButtonLabel = this.searchTerm ? 'Search' : 'Search All';
 }
  
-bookHotel(hotel:HotelInterface) {
+bookHotel(hotel:any) {
   this.selectedHotel=hotel;
    const bookingData = {
     hotel: hotel,

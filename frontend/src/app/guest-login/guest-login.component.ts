@@ -48,6 +48,7 @@ export class GuestLoginComponent {
         if (response && response.token) {
           this.userService.setToken(response.token);
           this.userService.setRole(response.role);
+          console.log('User ID from response:', response.userId);
           switch(response.role) {
             case 'user':
               this.router.navigate(['/user/hotel-search']);
@@ -85,9 +86,5 @@ export class GuestLoginComponent {
 
   onShowRegister(): void {
     this.router.navigate(['/register']);
-  }
-
-  switchToManagerLogin(): void {
-    this.router.navigate(['/manager-login']);
   }
 }

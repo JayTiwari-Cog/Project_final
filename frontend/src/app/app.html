@@ -9,11 +9,8 @@
       <div class="navbar-nav ms-auto">
         <!-- Buttons visible only when NOT logged in -->
         <div *ngIf="!isLoggedIn" class="btn-group me-2">
-          <button class="btn btn-outline-light" (click)="showGuestLogin()">
-            <i class="bi bi-person-circle"></i> Guest Login
-          </button>
-          <button class="btn btn-outline-success" (click)="showManagerLogin()">
-            <i class="bi bi-shield-check"></i> Manager Login
+          <button class="btn btn-light" (click)="showGuestLogin()">
+            <i class="bi bi-person-circle"></i> Login
           </button>
         </div>
         <button *ngIf="!isLoggedIn" class="btn btn-outline-light" (click)="showRegister()">
@@ -21,12 +18,12 @@
         </button>
         
         <!-- Buttons visible only when logged in -->
-        <button *ngIf="isLoggedIn" class="btn btn-outline-info me-2" (click)="showMyBookings()">
+        <button *ngIf="isLoggedIn" class="btn btn-outline-light me-2" (click)="showMyBookings()">
           <i class="bi bi-calendar-check"></i> My Bookings
         </button>
-        <div *ngIf="isLoggedIn" class="dropdown">
+        <div *ngIf="isLoggedIn" class="dropdown me-2">
           <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            <i class="bi bi-person-circle"></i> {{ userRole === 'manager' ? 'Manager' : 'User' }}
+            <i class="bi bi-person-circle"></i> User Profile
           </button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" (click)="showDashboard()" style="cursor: pointer;">

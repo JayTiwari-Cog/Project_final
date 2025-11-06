@@ -7,10 +7,15 @@
   
   <div class="booking-content" *ngIf="hotel">
     <div class="hotel-info">
-      <h3>{{ hotel.name }}</h3>
-      <p><i class="fas fa-map-marker-alt"></i> {{ hotel.location }}</p>
-      <p><i class="fas fa-star"></i> {{ hotel.rating }} Rating</p>
-      <p class="price"><i class="fas fa-rupee-sign"></i> {{ hotel.price }} per night</p>
+      <h3>{{ hotel.hotelName }}</h3>
+      <p><i class="fas fa-map-marker-alt"></i> {{  hotel.address.street+", "+hotel.address.postalCode +", "+hotel.address.city }}</p>
+      <div *ngIf="hotel.amenities?.length" class="amenities">
+        <strong>Amenities:</strong>
+        <span *ngFor="let a of hotel.amenities; let i = index">
+          <span>{{ a }}</span><span *ngIf="i < hotel.amenities.length - 1">, </span>
+        </span>
+      </div>
+      <p class="price"><i class="fas fa-rupee-sign"></i> {{ hotel.pricePerNight|currency:'INR'}}  per night</p>
     </div>
     
     <div class="stay-details">
